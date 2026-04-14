@@ -83,6 +83,11 @@ export function Header({ lang, tickerData }: HeaderProps) {
     return () => { document.body.style.overflow = '' }
   }, [drawerOpen])
 
+  // Close drawer on ANY route change (including language switch)
+  useEffect(() => {
+    setDrawerOpen(false)
+  }, [pathname])
+
   const switchLang = useCallback((newLang: Lang) => {
     document.cookie = `${LANG_COOKIE}=${newLang}; max-age=${LANG_COOKIE_MAX_AGE}; path=/; samesite=lax`
     const cleanPath = pathname.replace(/^\/(en|ar|fr)/, '') || '/'
