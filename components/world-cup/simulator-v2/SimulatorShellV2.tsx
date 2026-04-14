@@ -260,20 +260,94 @@ export function SimulatorShellV2({ lang = 'en' }: Props) {
             padding: '20px var(--edge)',
           }}
         >
-          {/* Action buttons — single line above bracket */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginBottom: 16, flexWrap: 'nowrap' }}>
-            <KoBtn bg="var(--green, #0a5229)" onClick={() => dispatch({ type: 'SET_STEP', step: 'groups' })}>
-              {normalizedLang === 'ar' ? '\u0627\u0644\u0645\u062C\u0645\u0648\u0639\u0627\u062A' : 'Groups'}
-            </KoBtn>
-            <KoBtn bg={state.mcStatus === 'running' ? 'var(--card-alt)' : 'var(--red, #c1121f)'} onClick={handleSimulate} disabled={state.mcStatus === 'running'}>
-              {state.mcStatus === 'running' ? '...' : '\u25B6 Simulate'}
-            </KoBtn>
-            <KoBtn bg="var(--gold, #b8820a)" onClick={() => setShowShare(true)}>
-              Share
-            </KoBtn>
-            <KoBtn bg="#1a1a1a" onClick={() => window.print()}>
-              Print
-            </KoBtn>
+          {/* Action buttons — prominent, centred, above everything */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 14,
+            marginBottom: 24,
+            padding: '8px 0',
+          }}>
+            <button
+              type="button"
+              onClick={() => dispatch({ type: 'SET_STEP', step: 'groups' })}
+              style={{
+                padding: '12px 28px',
+                minHeight: 48,
+                background: 'var(--green, #0a5229)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 'var(--radius, 8px)',
+                fontFamily: 'var(--font-head)',
+                fontSize: 15,
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {normalizedLang === 'ar' ? '\u0627\u0644\u0645\u062C\u0645\u0648\u0639\u0627\u062A' : normalizedLang === 'fr' ? 'Groupes' : 'Groups'}
+            </button>
+            <button
+              type="button"
+              onClick={handleSimulate}
+              disabled={state.mcStatus === 'running'}
+              style={{
+                padding: '12px 28px',
+                minHeight: 48,
+                background: state.mcStatus === 'running' ? 'var(--card-alt)' : 'var(--red, #c1121f)',
+                color: state.mcStatus === 'running' ? 'var(--text-faint)' : '#fff',
+                border: 'none',
+                borderRadius: 'var(--radius, 8px)',
+                fontFamily: 'var(--font-head)',
+                fontSize: 15,
+                fontWeight: 700,
+                cursor: state.mcStatus === 'running' ? 'wait' : 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {state.mcStatus === 'running'
+                ? (normalizedLang === 'ar' ? '\u062C\u0627\u0631\u064D...' : 'Simulating...')
+                : (normalizedLang === 'ar' ? '\u25B6 \u0645\u062D\u0627\u0643\u0627\u0629' : '\u25B6 Simulate')
+              }
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowShare(true)}
+              style={{
+                padding: '12px 28px',
+                minHeight: 48,
+                background: 'var(--gold, #8B6914)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 'var(--radius, 8px)',
+                fontFamily: 'var(--font-head)',
+                fontSize: 15,
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {normalizedLang === 'ar' ? '\u0645\u0634\u0627\u0631\u0643\u0629' : normalizedLang === 'fr' ? 'Partager' : 'Share'}
+            </button>
+            <button
+              type="button"
+              onClick={() => window.print()}
+              style={{
+                padding: '12px 28px',
+                minHeight: 48,
+                background: '#1a1a1a',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 'var(--radius, 8px)',
+                fontFamily: 'var(--font-head)',
+                fontSize: 15,
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {normalizedLang === 'ar' ? '\u0637\u0628\u0627\u0639\u0629' : normalizedLang === 'fr' ? 'Imprimer' : 'Print'}
+            </button>
           </div>
 
           <BracketCanvas
