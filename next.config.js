@@ -5,6 +5,11 @@ const { withSentryConfig } = require('@sentry/nextjs')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    // ESLint circular structure error with next/react plugin on Vercel.
+    // Linting runs separately via CI — safe to skip during build.
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'media.api-sports.io' },
