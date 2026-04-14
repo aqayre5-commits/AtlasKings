@@ -801,23 +801,35 @@ article.card > .art-grid { margin-top: 0; }
    MOBILE DRAWER
 ══════════════════════════════════════════════════════ */
 .drawer-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.7); z-index: 200;
-  opacity: 0; transition: opacity 0.25s ease;
-  backdrop-filter: blur(3px);
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 90;
 }
-.drawer-overlay.open { display: block; opacity: 1; }
+.drawer-overlay.open { display: block; }
 
 .drawer {
-  position: fixed; top: 0; left: 0; bottom: 0;
-  width: 300px; background: #181818; z-index: 201;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  background: #181818;
+  z-index: 95;
   visibility: hidden;
   transform: translateX(-100%);
-  transition: transform var(--t-slow), visibility var(--t-slow);
-  display: flex; flex-direction: column; overflow: hidden;
+  transition: transform 0.25s ease, visibility 0s linear 0.25s;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   box-shadow: 6px 0 32px rgba(0,0,0,0.6);
 }
-.drawer.open { visibility: visible; transform: translateX(0); }
+.drawer.open {
+  visibility: visible;
+  transform: translateX(0);
+  transition: transform 0.25s ease, visibility 0s linear 0s;
+}
 
 .drawer-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -1192,8 +1204,18 @@ article.card > .art-grid { margin-top: 0; }
 [dir="rtl"] .sec-head { flex-direction: row-reverse; }
 [dir="rtl"] .footer-body { direction: rtl; }
 [dir="rtl"] .nm-banner-inner { direction: rtl; }
-[dir="rtl"] .drawer { left: auto; right: 0; transform: translateX(100%); visibility: hidden; }
-[dir="rtl"] .drawer.open { transform: translateX(0); visibility: visible; }
+[dir="rtl"] .drawer {
+  left: auto;
+  right: 0;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+[dir="rtl"] .drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.25s ease, visibility 0s linear 0s;
+}
 [dir="rtl"] .drawer-link { text-align: right; border-left: none; border-right: 3px solid transparent; }
 [dir="rtl"] .drawer-link.active { border-right-color: var(--red); }
 [dir="rtl"] body,
