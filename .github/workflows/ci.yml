@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-typecheck-build:
+    name: Lint, Type Check & Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npx next lint
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npx next build
+        env:
+          # Provide dummy values so build doesn't fail on missing env vars
+          NEXT_PUBLIC_SITE_URL: https://atlaskings.com
+          NEXT_PUBLIC_APIFOOTBALL_KEY: ''
+          NEXT_PUBLIC_VAPID_PUBLIC_KEY: ''

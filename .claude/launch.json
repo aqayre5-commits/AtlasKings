@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "atlas-kings-dev",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["/Users/abdilahiqayre/atlas-kings/node_modules/.bin/next", "dev"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}

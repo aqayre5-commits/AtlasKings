@@ -1,0 +1,7 @@
+{
+  "extends": ["next"],
+  "rules": {
+    "@next/next/no-img-element": "error"
+  },
+  "ignorePatterns": [".next/", "node_modules/", "public/sw.js"]
+}

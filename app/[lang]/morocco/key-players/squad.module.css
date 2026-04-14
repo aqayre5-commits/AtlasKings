@@ -1,0 +1,73 @@
+/* ── Two-column section grid ── */
+@media (max-width: 960px) {
+  .sectionGrid {
+    grid-template-columns: 1fr !important;
+  }
+  .sectionSidebar {
+    order: -1;
+  }
+}
+
+/* ── Mobile overrides ── */
+@media (max-width: 768px) {
+  .statsBar {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .squadGrid {
+    grid-template-columns: 1fr !important;
+  }
+  /* Desktop blurb hidden on mobile */
+  .cardBlurbDesktop {
+    display: none !important;
+  }
+  /* Mobile tap-to-expand shown */
+  .cardBlurbMobile {
+    display: block !important;
+  }
+}
+
+/* ── Desktop: show full blurb, hide mobile expand ── */
+@media (min-width: 769px) {
+  .cardBlurbDesktop {
+    display: block;
+  }
+  .cardBlurbMobile {
+    display: none !important;
+  }
+}
+
+/* ── Sidebar widgets ── */
+.sidebarWidget {
+  background: var(--card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Player card hover ── */
+.playerCard {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.playerCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+}
+
+/* ── Details marker removal ── */
+.detailsSection summary::-webkit-details-marker {
+  display: none;
+}
+
+.detailsSection > summary {
+  list-style: none;
+}
+
+.cardBlurbMobile summary::-webkit-details-marker {
+  display: none;
+}
+
+.cardBlurbMobile > summary {
+  list-style: none;
+}
