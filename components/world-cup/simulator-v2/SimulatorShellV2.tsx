@@ -260,6 +260,22 @@ export function SimulatorShellV2({ lang = 'en' }: Props) {
             padding: '20px var(--edge)',
           }}
         >
+          {/* Action buttons — single line above bracket */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginBottom: 16, flexWrap: 'nowrap' }}>
+            <KoBtn bg="var(--green, #0a5229)" onClick={() => dispatch({ type: 'SET_STEP', step: 'groups' })}>
+              {normalizedLang === 'ar' ? '\u0627\u0644\u0645\u062C\u0645\u0648\u0639\u0627\u062A' : 'Groups'}
+            </KoBtn>
+            <KoBtn bg={state.mcStatus === 'running' ? 'var(--card-alt)' : 'var(--red, #c1121f)'} onClick={handleSimulate} disabled={state.mcStatus === 'running'}>
+              {state.mcStatus === 'running' ? '...' : '\u25B6 Simulate'}
+            </KoBtn>
+            <KoBtn bg="var(--gold, #b8820a)" onClick={() => setShowShare(true)}>
+              Share
+            </KoBtn>
+            <KoBtn bg="#1a1a1a" onClick={() => window.print()}>
+              Print
+            </KoBtn>
+          </div>
+
           <BracketCanvas
             knockout={state.knockout}
             onSelectWinner={handleSelectKnockoutWinner}
@@ -267,23 +283,6 @@ export function SimulatorShellV2({ lang = 'en' }: Props) {
             lang={normalizedLang}
             groupsComplete={groupsComplete}
             simulatorState={state}
-            onSimulateKnockout={handleSimulate}
-            actionButtons={
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 12 }}>
-                <KoBtn bg="var(--green, #0a5229)" onClick={() => dispatch({ type: 'SET_STEP', step: 'groups' })}>
-                  {normalizedLang === 'ar' ? '\u2192 \u0627\u0644\u0645\u062C\u0645\u0648\u0639\u0627\u062A' : '\u2190 Groups'}
-                </KoBtn>
-                <KoBtn bg={state.mcStatus === 'running' ? 'var(--card-alt)' : 'var(--red, #c1121f)'} onClick={handleSimulate} disabled={state.mcStatus === 'running'}>
-                  {state.mcStatus === 'running' ? 'Simulating...' : '\u25B6 Simulate'}
-                </KoBtn>
-                <KoBtn bg="var(--gold, #b8820a)" onClick={() => setShowShare(true)}>
-                  {'\uD83D\uDCF1 Share'}
-                </KoBtn>
-                <KoBtn bg="#1a1a1a" onClick={() => window.print()}>
-                  {'\uD83D\uDDA8 Print'}
-                </KoBtn>
-              </div>
-            }
           />
         </div>
       ) : (

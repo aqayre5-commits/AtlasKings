@@ -161,7 +161,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <api-sports-widget
                 data-type="config"
                 data-sport="football"
-                data-key="${process.env.NEXT_PUBLIC_APIFOOTBALL_KEY ?? ''}"
+                data-key="${process.env.APIFOOTBALL_KEY ?? ''}"
                 data-theme="dark"
                 data-refresh="120"
                 data-show-logos="true"

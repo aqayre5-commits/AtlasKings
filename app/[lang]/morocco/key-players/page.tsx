@@ -12,6 +12,7 @@ import { WhatsAppShare } from '@/components/ui/WhatsAppShare'
 import { getTranslations } from '@/lib/i18n/translations'
 import type { Lang } from '@/lib/i18n/config'
 import { getTeamSquad } from '@/lib/api-football/teams'
+import { getArticlesForTeam } from '@/lib/articles/getArticles'
 import { MOROCCO_TEAM_ID } from '@/lib/api-football/leagues'
 import {
   WC_SQUAD,
@@ -81,6 +82,9 @@ export default async function MoroccoSquadTrackerPage({ params }: { params: Prom
   // Falls back gracefully — cards render without photos if API is down.
   const apiSquad = await getTeamSquad(MOROCCO_TEAM_ID).catch(() => [])
   const photoMap = new Map(apiSquad.map(pl => [pl.id, pl]))
+
+  // Fetch real Morocco articles for sidebar
+  const sidebarArticles = getArticlesForTeam('morocco', langKey, 4)
 
   return (
     <main>
@@ -665,18 +669,57 @@ export default async function MoroccoSquadTrackerPage({ params }: { params: Prom
             ))}
           </div>
 
-          {/* Widget 3 — Latest News */}
+          {/* Widget 3 — Latest News (real articles) */}
           <div className={styles.sidebarWidget}>
             <h3 style={{
               fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 700,
               letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-faint)',
               margin: '0 0 1rem', paddingBottom: '0.5rem', borderBottom: '1px solid var(--border)',
             }}>
-              {langKey === 'ar' ? 'آخر الأخبار' : langKey === 'fr' ? 'Dernières actualités' : 'Latest News'}
+              {langKey === 'ar' ? '\u0622\u062E\u0631 \u0627\u0644\u0623\u062E\u0628\u0627\u0631' : langKey === 'fr' ? 'Derni\u00E8res actualit\u00E9s' : 'Latest News'}
             </h3>
-            <div style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--text-faint)', lineHeight: 1.5 }}>
-              {langKey === 'ar' ? 'أخبار التشكيلة قريبًا.' : langKey === 'fr' ? 'Actualités effectif à venir.' : 'Squad news coming soon.'}
-            </div>
+            {sidebarArticles.length > 0 ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {sidebarArticles.map(a => (
+                  <Link
+                    key={a.slug}
+                    href={`${p}/articles/${a.slug}`}
+                    style={{
+                      textDecoration: 'none',
+                      padding: '8px 0',
+                      borderBottom: '1px solid var(--border)',
+                      display: 'block',
+                    }}
+                  >
+                    <div style={{
+                      fontFamily: 'var(--font-head)',
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: 'var(--text)',
+                      lineHeight: 1.3,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}>
+                      {a.title}
+                    </div>
+                    <div style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 10,
+                      color: 'var(--text-faint)',
+                      marginTop: 4,
+                    }}>
+                      {new Date(a.date).toLocaleDateString(langKey === 'ar' ? 'ar-MA' : langKey === 'fr' ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'short' })}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--text-faint)' }}>
+                {langKey === 'ar' ? '\u0644\u0627 \u0623\u062E\u0628\u0627\u0631 \u062D\u0627\u0644\u064A\u064B\u0627' : langKey === 'fr' ? 'Pas d\'actualit\u00E9s pour le moment' : 'No news available'}
+              </div>
+            )}
           </div>
         </aside>
       </div>

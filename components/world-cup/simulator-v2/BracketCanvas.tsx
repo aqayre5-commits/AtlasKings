@@ -248,8 +248,6 @@ export function BracketCanvas({
             cardProps={cardProps}
             header={
               <>
-                {/* Action buttons — centred above trophy */}
-                {actionButtons}
                 <h1
                   style={{
                     fontFamily: 'var(--font-head)',

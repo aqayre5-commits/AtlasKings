@@ -16,7 +16,7 @@
   --green:        #0a5229;
   --green-bright: #3ecc78;
   --green-light:  #edf7f2;
-  --gold:         #b8820a;
+  --gold:         #8B6914;  /* darkened from #b8820a for WCAG AA 4.6:1 on white */
   --gold-light:   #fdf5e0;
   --live:         #0d9940;
   --navy:         #0a1f5c;
@@ -1123,6 +1123,7 @@ article.card > .art-grid { margin-top: 0; }
   font-family: var(--font-body);
   font-size: 17px; line-height: 1.8;
   color: var(--text);
+  max-width: 680px;  /* ~65-70 chars per line for comfortable reading */
 }
 .article-body h2 {
   font-family: var(--font-head);
